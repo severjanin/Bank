@@ -1,5 +1,7 @@
 package ee.sda;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class User {
@@ -8,30 +10,65 @@ public class User {
     private String password;
     private String fullName;
     private String address;
-    private long accountNumber;
+    private List<Account> accounts;
     private String phoneNumber;
     private String email;
     private String secretQuestion;
     private String secretAnswer;
 
-    public User(String id,
-                String password,
-                String fullName,
-                String address, long accountNumber,
-                String phoneNumber,
-                String email,
-                String secretQuestion,
-                String secretAnswer) {
+    public User(
+            String password,
+            String fullName,
+            String address,
+            String phoneNumber,
+            String email,
+            String secretQuestion,
+            String secretAnswer) {
 
         this.id = UUID.randomUUID().toString();
         this.password = password;
         this.fullName = fullName;
         this.address = address;
-        this.accountNumber = accountNumber;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.secretQuestion = secretQuestion;
         this.secretAnswer = secretAnswer;
+        this.accounts = new ArrayList<>();
+    }
+
+    public void addMoney(long accountId, double amountOfMoney) {
+        for (Account account : accounts) {
+            if (account.getNumber() == accountId) {
+                account.addMoney(amountOfMoney);
+            }
+        }
+    }
+
+    public void removeMoney(long accountId, double amountOfMoney) {
+        for (Account account : accounts) {
+            if (account.getNumber() == accountId) {
+                account.removeMoney(amountOfMoney);
+            }
+        }
+    }
+
+    public double totalAmountOfMoney() {
+        double sum = 0;
+        for (Account account : accounts) {
+            sum += account.getBalance();
+        }
+        return sum;
+//
+//        double sumWithIndex = 0;
+//        for (int i = 0; i < accounts.size(); i++) {
+//            sumWithIndex += accounts.get(i).getBalance();
+//        }
+//        return sumWithIndex;
+    }
+
+    public void addNewAccount(String currency) {
+        Account newAccount = new Account(currency);
+        accounts.add(newAccount);
     }
 
     public String getId() {
@@ -64,14 +101,6 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public long getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     public String getPhoneNumber() {
@@ -113,14 +142,12 @@ public class User {
                 ", password='" + password + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", address='" + address + '\'' +
-                ", accountNumber=" + accountNumber +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", secretQuestion='" + secretQuestion + '\'' +
                 ", secretAnswer='" + secretAnswer + '\'' +
                 '}';
     }
-
 
 
 }
