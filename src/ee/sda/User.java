@@ -10,6 +10,7 @@ public class User {
     private String password;
     private String fullName;
     private String address;
+    private String accountNumber;
     private List<Account> accounts;
     private String phoneNumber;
     private String email;
@@ -40,14 +41,15 @@ public class User {
         for (Account account : accounts) {
             if (account.getNumber() == accountId) {
                 account.addMoney(amountOfMoney);
+                return;
             }
         }
     }
 
-    public void removeMoney(long accountId, double amountOfMoney) {
+    public void substractMoney(long accountId, double amountOfMoney) {
         for (Account account : accounts) {
             if (account.getNumber() == accountId) {
-                account.removeMoney(amountOfMoney);
+                account.substractMoney(amountOfMoney);
             }
         }
     }
@@ -135,6 +137,7 @@ public class User {
         this.secretAnswer = secretAnswer;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -142,12 +145,12 @@ public class User {
                 ", password='" + password + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", address='" + address + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", accounts=" + accounts +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", secretQuestion='" + secretQuestion + '\'' +
                 ", secretAnswer='" + secretAnswer + '\'' +
                 '}';
     }
-
-
 }

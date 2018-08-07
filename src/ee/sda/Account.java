@@ -41,7 +41,7 @@ public class Account {
         this.balance += amountOfMoney;
     }
 
-    public void removeMoney(double amountOfMoney) {
+    public void substractMoney(double amountOfMoney) {
         this.balance -= amountOfMoney;
     }
 

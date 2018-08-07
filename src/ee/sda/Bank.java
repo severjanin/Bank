@@ -1,14 +1,20 @@
 package ee.sda;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
 
-    List<User> users;
-    String bankName;
+    private List<User> users;
+    private String bankName;
 
     public Bank(String bankName) {
         this.bankName = bankName;
+        this.users = new ArrayList<>();
+    }
+
+    public String getBankName() {
+        return bankName;
     }
 
     public void addUser(String password, String fullName, String address, String phoneNumber, String email, String secretQuestion, String secretAnswer) {
@@ -33,16 +39,24 @@ public class Bank {
         for (User user : users) {
             if (user.getId().equals(userId)) {
                 user.addMoney(accountId, amountOfMoney);
+                return;
             }
         }
     }
 
-    public void removeMoneyFromUser(String userId, long accountId, double amountOfMoney) {
+    public void substractFromUser(String userId, long accountId, double amountOfMoney) {
         for (User user : users) {
             if (user.getId().equals(userId)) {
-                user.removeMoney(accountId, amountOfMoney);
+                user.substractMoney(accountId, amountOfMoney);
             }
         }
     }
 
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "users=" + users +
+                ", bankName='" + bankName + '\'' +
+                '}';
+    }
 }
